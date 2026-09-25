@@ -27,7 +27,10 @@ class Solution {
             return dp[i][j] = steps(i - 1, j - 1, s1, s2, dp);
         }
 
-        return dp[i][j] = 1 + Math.min(steps(i, j - 1, s1, s2, dp),
-                Math.min(steps(i - 1, j, s1, s2, dp), steps(i - 1, j - 1, s1, s2, dp)));
+        int insert = steps(i, j - 1, s1, s2, dp);
+        int delete = steps(i - 1, j, s1, s2, dp);
+        int replace = steps(i - 1, j - 1, s1, s2, dp);
+
+        return dp[i][j] = 1 + Math.min(insert, Math.min(delete, replace));
     }
 }
