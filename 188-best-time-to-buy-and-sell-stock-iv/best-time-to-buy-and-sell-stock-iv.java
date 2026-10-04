@@ -1,25 +1,28 @@
-//TABULATION
 class Solution {
     public int maxProfit(int k, int[] prices) {
         int n = prices.length;
-        int[][][] dp = new int[n + 1][2][k + 1];
-        for (int[][] grid : dp) {
-            for (int[] row : grid) {
-                Arrays.fill(row, 0);
-            }
+        int[][] dp = new int[n][2 * k];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], -1);
         }
-        for (int i = n - 1; i >= 0; i--) {
-            for (int buy = 0; buy <= 1; buy++) {
-                for (int cap = 1; cap <= k; cap++) {
-                    if (buy == 1) {
-                        dp[i][buy][cap] = Math.max((-prices[i] + dp[i + 1][0][cap]), (0 + dp[i + 1][1][cap]));
-                    } else {
-                        dp[i][buy][cap] = Math.max((prices[i] + dp[i + 1][1][cap - 1]),
-                                (0 + dp[i + 1][0][cap]));
-                    }
-                }
-            }
+        return buysell(0, 0, k, prices, n, dp);
+    }
+
+    int buysell(int i, int trans, int k, int[] prices, int n, int[][] dp) {
+        if (trans == 2 * k || i == n) {
+            return 0;
         }
-        return dp[0][1][k];
+
+        if (dp[i][trans] != -1) {
+            return dp[i][trans];
+        }
+
+        if (trans % 2 == 0) {
+            return dp[i][trans] = Math.max((-prices[i] + buysell(i + 1, trans + 1, k, prices, n, dp)),
+                    (0 + buysell(i + 1, trans, k, prices, n, dp)));
+        }
+
+        return dp[i][trans] = Math.max((prices[i] + buysell(i + 1, trans + 1, k, prices, n, dp)),
+                (0 + buysell(i + 1, trans, k, prices, n, dp)));
     }
 }
