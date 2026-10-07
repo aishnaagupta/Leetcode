@@ -13,17 +13,18 @@ class Solution {
             list.add(p);
             return list;
         }
-        String[] mapping = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+        String[] map = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
 
         int digit = up.charAt(0) - '0';
-        String letters = mapping[digit];
+        String letters = map[digit];
 
         ArrayList<String> list = new ArrayList<>();
-
         for (int i = 0; i < letters.length(); i++) {
             char toAdd = letters.charAt(i);
             list.addAll(pad(p + toAdd, up.substring(1)));
         }
+
         return list;
     }
 }
