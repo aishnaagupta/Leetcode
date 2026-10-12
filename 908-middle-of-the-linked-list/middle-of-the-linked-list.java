@@ -10,23 +10,14 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-        ListNode temp = head;
-        int size = 0;
-        while (temp != null) {
-            size++;
-            temp = temp.next;
-        }
-        ListNode node = find(head, size / 2);
-        ListNode mid = node;
+        ListNode slow = head;
+        ListNode fast = head;
 
-        return mid;
-    }
-
-    public ListNode find(ListNode head, int size) {
-        ListNode node = head;
-        for (int i = 0; i < size; i++) {
-            node = node.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        return node;
+
+        return slow; //since fast is moving twice as slow- when it reaches end, slow will be in the middle
     }
 }
