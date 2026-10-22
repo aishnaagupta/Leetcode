@@ -3,7 +3,7 @@
  * public class ListNode {
  *     int val;
  *     ListNode next;
- *     ListNode() {}
+ *     ListNode() {} 
  *     ListNode(int val) { this.val = val; }
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
@@ -13,15 +13,14 @@ class Solution {
         if (head == null || head.next == null) {
             return head;
         }
-
+        ListNode oddRef = null;
         ListNode odd = head;
         ListNode even = head.next;
-        ListNode oddR = null;
-        ListNode evenR = head.next;
+        ListNode evenRef = head.next;
 
         while (odd != null && even != null) {
             if (odd.next.next == null) {
-                oddR = odd;
+                oddRef = odd;
             }
 
             ListNode oddTemp = odd.next.next;
@@ -37,11 +36,10 @@ class Solution {
             even = even.next;
         }
 
-        if (oddR == null) {
-            oddR = odd;
+        if (oddRef == null) {
+            oddRef = odd;
         }
-
-        oddR.next = evenR;
+        oddRef.next = evenRef;
 
         return head;
     }
