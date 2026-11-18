@@ -1,10 +1,10 @@
 class Solution {
     public int singleNumber(int[] nums) {
+        int n = nums.length;
         int ans = 0;
-
-        for (int bit = 0; bit <= 31; bit++) {
+        for (int bit = 0; bit < 32; bit++) {
             int count = 0;
-            for (int i = 0; i < nums.length; i++) {
+            for (int i = 0; i < n; i++) {
                 if ((nums[i] & (1 << bit)) != 0) {
                     count++;
                 }
