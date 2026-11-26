@@ -1,28 +1,45 @@
-//USING SINGLE QUEUE
+//USING 2 QUEUES
 class MyStack {
-    Queue<Integer> q;
+    Queue<Integer> q1;
+    Queue<Integer> q2;
 
     public MyStack() {
-        q = new LinkedList<>();
+        q1 = new LinkedList<>();
+        q2 = new LinkedList<>();
+
     }
 
     public void push(int x) {
-        q.offer(x);
-        for (int i = 1; i < q.size(); i++) {
-            q.offer(q.poll()); //remove element from front and add from rear this way we get a stack like structure
-        }
+        q1.offer(x);
     }
 
     public int pop() {
-        return q.poll();
+        while(q1.size() > 1){
+            q2.offer(q1.poll());
+        }
+        int poppedVal= q1.poll();
+        Queue<Integer> temp=q1;
+        q1=q2;
+        q2=temp;
+
+        return poppedVal;
     }
 
     public int top() {
-        return q.peek();
+        while(q1.size() > 1){
+            q2.offer(q1.poll());
+        }
+        int topVal= q1.peek();
+        q2.offer(q1.poll());
+        Queue<Integer> temp=q1;
+        q1=q2;
+        q2=temp;
+
+        return topVal;
     }
 
     public boolean empty() {
-        return q.isEmpty();
+        return q1.isEmpty();
     }
 }
 
