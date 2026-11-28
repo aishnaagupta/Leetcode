@@ -3,32 +3,32 @@ class Solution {
         if (k == num.length()) {
             return "0";
         }
-
-        Stack<Integer> st = new Stack<>();
+        Stack<Integer> s = new Stack<>();
         for (int i = 0; i < num.length(); i++) {
-            while (!st.isEmpty() && k > 0 && (st.peek()) > num.charAt(i) - '0') {
-                st.pop();
+            while (!s.isEmpty() && k > 0 && s.peek() > num.charAt(i) - '0') {
+                s.pop();
                 k--;
             }
-            st.push(num.charAt(i) - '0');
+            s.push(num.charAt(i) - '0');
         }
 
-        while (k > 0) { //if at the end by this method no elements have been popped, simply pop the top k elements for eg in "654321"
-            st.pop();
+        while (k > 0) {
+            s.pop();
             k--;
         }
 
-        if (st.isEmpty()) { 
+        if (s.isEmpty()) {
             return "0";
         }
 
-        StringBuilder sb = new StringBuilder();
-        while (!st.isEmpty()) {
-            sb.append(st.pop());
+        StringBuffer sb = new StringBuffer();
+        while (!s.isEmpty()) {
+            sb.append(s.pop());
         }
+
         sb.reverse();
 
-        while (sb.length() > 1 && sb.charAt(0) == '0') { //to avoid leading zeroes
+        while (sb.length() > 1 && sb.charAt(0) == '0') {
             sb.deleteCharAt(0);
         }
 
